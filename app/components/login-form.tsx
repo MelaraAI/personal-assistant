@@ -41,11 +41,13 @@ export default function LoginForm({ onCancelAction, colorTheme }: LoginFormProps
   setIsLoading(true)
   setErrorMessage("")
 
-  if (email.trim().toLowerCase() !== "viincentmelara@gmail.com") {
-    setErrorMessage("Access denied. Please enter the correct email to continue.")
-    setIsLoading(false)
-    return
-  }
+  const allowedEmails = ["viincentmelara@gmail.com", "rhayek@hayekinsurance.com"];
+if (!allowedEmails.includes(email.trim().toLowerCase())) {
+  setErrorMessage("Access denied. Please enter the correct email to continue.");
+  setIsLoading(false);
+  return;
+}
+
 
   // Get the current origin dynamically
   const origin = typeof window !== 'undefined' ? window.location.origin : ''

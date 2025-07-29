@@ -18,10 +18,12 @@ export default function LoginPage() {
   const handleLogin = async () => {
     setErrorMessage("");
 
-    if (email.trim().toLowerCase() !== "viincentmelara@gmail.com") {
-      setErrorMessage("Access denied. Please enter the correct email to continue.");
-      return;
-    }
+    const allowedEmails = ["viincentmelara@gmail.com", "rhayek@hayekinsurance.com"];
+if (!allowedEmails.includes(email.trim().toLowerCase())) {
+  setErrorMessage("Access denied. Please enter the correct email to continue.");
+  return;
+}
+
 
     const { error } = await supabase.auth.signInWithOtp({
       email,
