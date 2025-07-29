@@ -41,7 +41,7 @@ export default function LoginForm({ onCancelAction, colorTheme }: LoginFormProps
   setIsLoading(true)
   setErrorMessage("")
 
-  const allowedEmails = ["viincentmelara@gmail.com", "rhayek@hayekinsurance.com"];
+  const allowedEmails = ["viincentmelara@gmail.com", "rhayek@hayekinsurance.com", "team@melara.tech"];
 if (!allowedEmails.includes(email.trim().toLowerCase())) {
   setErrorMessage("Access denied. Please enter the correct email to continue.");
   setIsLoading(false);
