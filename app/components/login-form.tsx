@@ -57,7 +57,7 @@ export default function LoginForm({ onCancelAction, colorTheme }: LoginFormProps
     email,
     options: { 
       shouldCreateUser: true,
-      emailRedirectTo: "https://rhayek-pa.vercel.app/auth/confirm",
+      emailRedirectTo: "https://rhayek-pa.vercel.app/",
     },
   })
 
