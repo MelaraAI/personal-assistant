@@ -37,35 +37,39 @@ export default function LoginForm({ onCancelAction, colorTheme }: LoginFormProps
   const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setErrorMessage("")
+  e.preventDefault()
+  setIsLoading(true)
+  setErrorMessage("")
 
-    if (email.trim().toLowerCase() !== "viincentmelara@gmail.com") {
-      setErrorMessage("Access denied. Please enter the correct email to continue.")
-      setIsLoading(false)
-      return
-    }
-
-const origin = typeof window !== 'undefined' ? window.location.origin : ''
-
-
-const { error } = await supabase.auth.signInWithOtp({
-  email,
-  options: {
-    shouldCreateUser: true,
-    emailRedirectTo: `${origin}/auth/confirm`, // 👈 this is the fix
-  },
-})
-
-    if (!error) {
-      setSent(true)
-    } else {
-      setErrorMessage("Error sending magic link. Please try again.")
-    }
-
+  if (email.trim().toLowerCase() !== "viincentmelara@gmail.com") {
+    setErrorMessage("Access denied. Please enter the correct email to continue.")
     setIsLoading(false)
+    return
   }
+
+  const origin = typeof window !== 'undefined' ? window.location.origin : ''
+  const redirectUrl = `${origin}/auth/confirm`
+  
+  // ✅ log the redirect URL
+  console.log("🔁 Redirect URL sent to Supabase:", redirectUrl)
+
+  const { error } = await supabase.auth.signInWithOtp({
+    email,
+    options: { 
+      shouldCreateUser: true,
+      emailRedirectTo: redirectUrl
+    },
+  })
+
+  if (!error) {
+    setSent(true)
+  } else {
+    setErrorMessage("Error sending magic link. Please try again.")
+  }
+
+  setIsLoading(false)
+}
+
 
   // ✅ Redirect once the user is logged in via magic link
   useEffect(() => {
