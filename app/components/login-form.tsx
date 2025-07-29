@@ -47,17 +47,18 @@ export default function LoginForm({ onCancelAction, colorTheme }: LoginFormProps
     return
   }
 
-  // const origin = typeof window !== 'undefined' ? window.location.origin : ''
-  // const redirectUrl = `${origin}/auth/confirm`
+  // Get the current origin dynamically
+  const origin = typeof window !== 'undefined' ? window.location.origin : ''
+  const redirectUrl = `${origin}/auth/confirm`
   
-  // ✅ log the redirect URL
-  // console.log("🔁 Redirect URL sent to Supabase:", redirectUrl)
+  // Log the redirect URL for debugging
+  console.log("🔁 Redirect URL sent to Supabase:", redirectUrl)
 
   const { error } = await supabase.auth.signInWithOtp({
     email,
     options: { 
       shouldCreateUser: true,
-      emailRedirectTo: "https://rhayek-pa.vercel.app/",
+      emailRedirectTo: redirectUrl,
     },
   })
 
