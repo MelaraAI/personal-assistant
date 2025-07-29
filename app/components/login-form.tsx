@@ -47,14 +47,16 @@ export default function LoginForm({ onCancelAction, colorTheme }: LoginFormProps
       return
     }
 
-    const origin = typeof window !== "undefined" ? window.location.origin : ""
+const origin = typeof window !== 'undefined' ? window.location.origin : ''
 
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-options: {
+
+const { error } = await supabase.auth.signInWithOtp({
+  email,
+  options: {
     shouldCreateUser: true,
-    emailRedirectTo: `${origin}/auth/callback`, // ✅ important line
-  },    })
+    emailRedirectTo: `${origin}/auth/confirm`, // 👈 this is the fix
+  },
+})
 
     if (!error) {
       setSent(true)
